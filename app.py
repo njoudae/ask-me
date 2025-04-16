@@ -60,6 +60,7 @@ if uploaded_file:
     # استخدام المفتاح من البيئة
     #embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
     
+    openai_key = str(openai_key)
     os.environ["OPENAI_API_KEY"] = openai_key
     embeddings = OpenAIEmbeddings()
 
