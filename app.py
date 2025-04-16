@@ -20,7 +20,7 @@ openai_key = os.getenv("OPENAI_API_KEY")
 
 # إعداد صفحة Streamlit
 st.set_page_config(page_title="اسألني", layout="wide")
-st.title("📄 تفاعل مع ملفك باللغة العربية")
+st.title("تفاعل مع ملفك باللغة العربية 📄")
 st.markdown(
     """
     <style>
@@ -33,7 +33,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-uploaded_file = st.file_uploader("📎 ارفع الملف", type="pdf")
+uploaded_file = st.file_uploader(" ارفع الملف📎", type="pdf")
 
 
 def extract_text(pdf_file):
@@ -55,7 +55,8 @@ if uploaded_file:
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=100)
     chunks = splitter.split_text(raw_text)
-    docs = [Document(page_content=chunk) for chunk in chunks]
+    texts = [chunk for chunk in chunks]
+
 
     # استخدام المفتاح من البيئة
     #embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
@@ -64,7 +65,7 @@ if uploaded_file:
     os.environ["OPENAI_API_KEY"] = openai_key
     embeddings = OpenAIEmbeddings()
 
-    vectordb = FAISS.from_documents(docs, embeddings)
+    vectordb = FAISS.from_texts(texts, embeddings)
 
     # خانة السؤال
     question = st.text_input("🗨️ اكتب سؤالك هنا:")
