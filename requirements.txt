@@ -4,8 +4,9 @@ pytesseract
 Pillow
 langchain
 langchain-community
-openai
+openai>=1.0.0
 sentence-transformers
 faiss-cpu
 python-dotenv
 pydantic<2.0
+tiktoken
