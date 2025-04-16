@@ -58,7 +58,11 @@ if uploaded_file:
     docs = [Document(page_content=chunk) for chunk in chunks]
 
     # استخدام المفتاح من البيئة
-    embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
+    #embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
+    
+    os.environ["OPENAI_API_KEY"] = openai_key
+    embeddings = OpenAIEmbeddings()
+
     vectordb = FAISS.from_documents(docs, embeddings)
 
     # خانة السؤال
