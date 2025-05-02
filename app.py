@@ -18,7 +18,7 @@ load_dotenv()
 openai_key = os.getenv("OPENAI_API_KEY")
 
 
-# إعداد صفحة Streamlit
+# Web structure and design using Streamlit
 st.set_page_config(page_title="اسألني", layout="wide")
 st.title("تفاعل مع ملفك باللغة العربية 📄")
 st.markdown(
@@ -36,6 +36,7 @@ st.markdown(
 uploaded_file = st.file_uploader(" ارفع الملف📎", type="pdf")
 
 
+# Extract the terxt from PDF and Image
 def extract_text(pdf_file):
     doc = fitz.open(stream=pdf_file.read(), filetype="pdf")
     text = ""
@@ -49,7 +50,7 @@ def extract_text(pdf_file):
             text += pytesseract.image_to_string(img, lang='ara')
     return text
 
-# عند رفع الملف
+
 if uploaded_file:
     raw_text = extract_text(uploaded_file)
 
@@ -58,7 +59,7 @@ if uploaded_file:
     texts = [chunk for chunk in chunks]
 
 
-    # استخدام المفتاح من البيئة
+    
     #embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
     
     openai_key = str(openai_key)
@@ -67,7 +68,7 @@ if uploaded_file:
 
     vectordb = FAISS.from_texts(texts, embeddings)
 
-    # خانة السؤال
+  
     question = st.text_input("🗨️ اكتب سؤالك هنا:")
 
     if question:
